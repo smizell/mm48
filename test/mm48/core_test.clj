@@ -46,4 +46,49 @@
 ;; Returns row if nothing is equal
 (expect (reduce-row-left [4 2 4 2]) [4 2 4 2])
 
+(def test-board [[4 2 0 0]
+                 [4 0 0 4]
+                 [0 0 4 0]
+                 [2 2 2 0]])
+
+(expect (rotate-board-right test-board)
+        [[2 0 4 4]
+         [2 0 0 2]
+         [2 4 0 0]
+         [0 0 4 0]])
+
+(expect (rotate-row-right test-board 0) [2 0 4 4])
+(expect (rotate-row-right test-board 1) [2 0 0 2])
+
+(expect (rotate-board 3 test-board)
+        [[0 4 0 0]
+         [0 0 4 2]
+         [2 0 0 2]
+         [4 4 0 2]])
+
+(expect (move-left test-board)
+        [[4 2 0 0]
+         [8 0 0 0]
+         [4 0 0 0]
+         [4 2 0 0]])
+
+(expect (move-up test-board)
+        [[8 4 4 4]
+         [2 0 2 0]
+         [0 0 0 0]
+         [0 0 0 0]])
+
+(expect (move-right test-board)
+        [[0 0 4 2]
+         [0 0 0 8]
+         [0 0 0 4]
+         [0 0 2 4]])
+
+(expect (move-down test-board)
+        [[0 0 0 0]
+         [0 0 0 0]
+         [8 0 4 0]
+         [2 4 2 4]])
+
+
 

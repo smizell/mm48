@@ -29,3 +29,33 @@
 
 (defn reduce-board-left [board]
   (map reduce-row-left (shift-board-left board)))
+
+(defn rotate-row-right [board row]
+  [(nth (nth board 3) row)
+   (nth (nth board 2) row)
+   (nth (nth board 1) row)
+   (nth (nth board 0) row)])
+
+(defn rotate-board-right [board]
+  (map (fn [row-num]
+         (rotate-row-right board row-num)) (range 0 4)))
+
+(defn rotate-board [rotations board]
+  (if (= rotations 0)
+    board
+    (rotate-board (dec rotations) (rotate-board-right board))))
+
+(defn move-board [first-rotate second-rotate board]
+  (rotate-board second-rotate (reduce-board-left (rotate-board first-rotate board))))
+
+(defn move-left [board]
+  (reduce-board-left board))
+
+(defn move-up [board]
+  (move-board 3 1 board))
+
+(defn move-right [board]
+  (move-board 2 2 board))
+
+(defn move-down [board]
+  (move-board 1 3 board))
