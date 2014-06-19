@@ -1,14 +1,14 @@
 # mm48
 
-A Clojure library designed to ... well, that part is up to you.
+A Clojure library to provide functions for playing 2048
 
 ## Usage
 
-FIXME
+TBD
 
 ## License
 
-Copyright © 2014 FIXME
+Copyright © 2014 Stephen Mizell
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
