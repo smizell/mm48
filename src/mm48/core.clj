@@ -7,7 +7,7 @@
        (map first)))
 
 (defn remove-zeros [row]
-  (filter (fn [cell] (not= cell 0)) row))
+  (filter #(not= 0 %) row))
 
 (defn coordinates-for-zeros [board]
   (->> board
@@ -54,8 +54,8 @@
    (nth (nth board 0) row)])
 
 (defn rotate-board-right [board]
-  (map (fn [row-num]
-         (rotate-row-right board row-num)) (range 0 4)))
+  (vec (map (fn [row-num]
+         (rotate-row-right board row-num)) (range 4))))
 
 (defn rotate-board [rotations board]
   (if (= rotations 0)
@@ -66,13 +66,13 @@
   (rotate-board second-rotate (merge-board-left (rotate-board first-rotate board))))
 
 (defn merge-board-up [board]
-  (vec (merge-board 3 1 board)))
+  (merge-board 3 1 board))
 
 (defn merge-board-right [board]
-  (vec (merge-board 2 2 board)))
+  (merge-board 2 2 board))
 
 (defn merge-board-down [board]
-  (vec (merge-board 1 3 board)))
+  (merge-board 1 3 board))
 
 (defn rand-empty-cell [board]
   (->> (coordinates-for-zeros board)
@@ -102,14 +102,14 @@
   (move-board board merge-board-left))
 
 (defn move-up [board]
-    (move-board board merge-board-up))
+  (move-board board merge-board-up))
 
 (defn move-right [board]
-    (move-board board merge-board-right))
+  (move-board board merge-board-right))
 
 (defn move-down [board]
-    (move-board board merge-board-down))
+  (move-board board merge-board-down))
 
-(defn can-move? [board]
+(defn move? [board]
   (or (not= (merge-board-left board) board)
       (not= (merge-board-up board) board)))
