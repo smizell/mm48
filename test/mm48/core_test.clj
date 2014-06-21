@@ -114,5 +114,26 @@
         [])
 
 
+(expect (count (coordinates-for-zeros (starting-board))) 14)
+
+(expect (count (coordinates-for-zeros (move-left test-board))) 9)
+
+(expect (count (coordinates-for-zeros (move-up test-board))) 9)
+
+(expect (count (coordinates-for-zeros (move-right test-board))) 9)
+
+(expect (count (coordinates-for-zeros (move-down test-board))) 9)
+
+(expect (can-move? [[2 0 4 4]
+                    [2 0 0 2]
+                    [2 4 0 0]
+                    [0 0 4 0]])
+        true)
 
 
+
+(expect (can-move? [[2 4 6 8]
+                    [8 6 4 2]
+                    [2 4 6 8]
+                    [8 6 4 2]])
+        false)

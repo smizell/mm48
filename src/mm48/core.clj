@@ -31,18 +31,21 @@
         cell3 (nth row 3)]
     (cond
      (and (= cell0 cell1) (= cell2 cell3))
-       (concat [(+ cell0 cell1) (+ cell2 cell3) 0 0])
+       (vec (concat [(+ cell0 cell1) (+ cell2 cell3) 0 0]))
      (= cell0 cell1)
-       (concat [(+ cell0 cell1) cell2 cell3 0])
+       (vec (concat [(+ cell0 cell1) cell2 cell3 0]))
      (= cell1 cell2)
-       (concat [cell0 (+ cell1 cell2) cell3 0])
+       (vec (concat [cell0 (+ cell1 cell2) cell3 0]))
      (= cell2 cell3)
-       (concat [cell0 cell1 (+ cell2 cell3) 0])
+       (vec (concat [cell0 cell1 (+ cell2 cell3) 0]))
      :else
        row)))
 
 (defn merge-board-left [board]
-  (map merge-row-left (shift-board-left board)))
+  (->> board
+       (shift-board-left)
+       (map merge-row-left)
+       (vec)))
 
 (defn rotate-row-right [board row]
   [(nth (nth board 3) row)
@@ -63,13 +66,13 @@
   (rotate-board second-rotate (merge-board-left (rotate-board first-rotate board))))
 
 (defn merge-board-up [board]
-  (merge-board 3 1 board))
+  (vec (merge-board 3 1 board)))
 
 (defn merge-board-right [board]
-  (merge-board 2 2 board))
+  (vec (merge-board 2 2 board)))
 
 (defn merge-board-down [board]
-  (merge-board 1 3 board))
+  (vec (merge-board 1 3 board)))
 
 (defn rand-empty-cell [board]
   (->> (coordinates-for-zeros board)
@@ -81,3 +84,32 @@
   (let [[row cell] (rand-empty-cell board)
         n (rand-numb-to-insert)]
     (assoc board row (assoc (nth board row) cell n))))
+
+(defn starting-board []
+  (->> [[0 0 0 0]
+        [0 0 0 0]
+        [0 0 0 0]
+        [0 0 0 0]]
+       (insert-rand-cell)
+       (insert-rand-cell)))
+
+(defn move-board [board direction]
+  (->> board
+       (direction)
+       (insert-rand-cell)))
+
+(defn move-left [board]
+  (move-board board merge-board-left))
+
+(defn move-up [board]
+    (move-board board merge-board-up))
+
+(defn move-right [board]
+    (move-board board merge-board-right))
+
+(defn move-down [board]
+    (move-board board merge-board-down))
+
+(defn can-move? [board]
+  (or (not= (merge-board-left board) board)
+      (not= (merge-board-up board) board)))
