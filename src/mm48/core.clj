@@ -30,16 +30,16 @@
         cell2 (nth row 2)
         cell3 (nth row 3)]
     (cond
-     (and (= cell0 cell1) (= cell2 cell3))
-       (vec (concat [(+ cell0 cell1) (+ cell2 cell3) 0 0]))
-     (= cell0 cell1)
-       (vec (concat [(+ cell0 cell1) cell2 cell3 0]))
-     (= cell1 cell2)
-       (vec (concat [cell0 (+ cell1 cell2) cell3 0]))
-     (= cell2 cell3)
-       (vec (concat [cell0 cell1 (+ cell2 cell3) 0]))
-     :else
-       row)))
+       (and (= cell0 cell1) (= cell2 cell3))
+         (vec (concat [(+ cell0 cell1) (+ cell2 cell3) 0 0]))
+       (= cell0 cell1)
+         (vec (concat [(+ cell0 cell1) cell2 cell3 0]))
+       (= cell1 cell2)
+         (vec (concat [cell0 (+ cell1 cell2) cell3 0]))
+       (= cell2 cell3)
+         (vec (concat [cell0 cell1 (+ cell2 cell3) 0]))
+       :else
+         row)))
 
 (defn merge-board-left [board]
   (->> board
