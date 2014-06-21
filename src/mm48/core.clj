@@ -113,3 +113,20 @@
 (defn move? [board]
   (or (not= (merge-board-left board) board)
       (not= (merge-board-up board) board)))
+
+(defn move-left? [board]
+  (not= (merge-board-left board) board))
+
+(defn move-up? [board]
+  (not= (merge-board-up board) board))
+
+;; Even though we are testing right, this tests to
+;; see if we can move left. It's less code, and if you
+;; can move left, you can move right
+(defn move-right? [board]
+  (move-left? board))
+
+;; Reason for using move-up? is the same reason as comment
+;; for move-right?
+(defn move-down? [board]
+  (move-up? board))

@@ -130,10 +130,41 @@
                 [0 0 4 0]])
         true)
 
+(def no-moves [[2 4 6 8]
+               [8 6 4 2]
+               [2 4 6 8]
+               [8 6 4 2]])
 
+(expect (move? no-moves) false)
 
-(expect (move? [[2 4 6 8]
-                [8 6 4 2]
-                [2 4 6 8]
-                [8 6 4 2]])
-        false)
+(expect (move-left? [[4 4 6 8]
+                     [8 6 4 2]
+                     [2 4 6 8]
+                     [8 6 4 2]])
+        true)
+
+(expect (move-left? no-moves) false)
+
+(expect (move-up? [[8 4 6 8]
+                   [8 6 4 2]
+                   [2 4 6 8]
+                   [8 6 4 2]])
+        true)
+
+(expect (move-up? no-moves) false)
+
+(expect (move-right? [[4 4 6 8]
+                      [8 6 4 2]
+                      [2 4 6 8]
+                      [8 6 4 2]])
+        true)
+
+(expect (move-right? no-moves) false)
+
+(expect (move-down? [[8 4 6 8]
+                     [8 6 4 2]
+                     [2 4 6 8]
+                     [8 6 4 2]])
+        true)
+
+(expect (move-down? no-moves) false)
