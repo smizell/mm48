@@ -1,4 +1,4 @@
-(defproject mm48 "0.1.0-SNAPSHOT"
+(defproject mm48 "0.1.0"
   :description "Functions for 2048"
   :url "https://github.com/smizell/mm48"
   :license {:name "Eclipse Public License"
