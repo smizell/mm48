@@ -3,7 +3,7 @@
             [mm48.core :refer :all]))
 
 ;; Should move all the numbers left and add when numbers can be added
-(expect (reduce-board-left
+(expect (merge-board-left
          [[2 2 4 2]
           [2 4 0 4]
           [4 2 4 4]
@@ -32,19 +32,19 @@
 
 ;; Adds up a row to the left where first and second are equal
 ;; and third and fourth are equal
-(expect (reduce-row-left [2 2 4 4]) [4 8 0 0])
+(expect (merge-row-left [2 2 4 4]) [4 8 0 0])
 
 ;; Adds up row to left where only first and second are equal
-(expect (reduce-row-left [2 2 4 2]) [4 4 2 0])
+(expect (merge-row-left [2 2 4 2]) [4 4 2 0])
 
 ;; Adds up row to left where only second and third are equal
-(expect (reduce-row-left [2 4 4 2]) [2 8 2 0])
+(expect (merge-row-left [2 4 4 2]) [2 8 2 0])
 
 ;; Adds up row to left where only third and fourth are equal
-(expect (reduce-row-left [4 2 4 4]) [4 2 8 0])
+(expect (merge-row-left [4 2 4 4]) [4 2 8 0])
 
 ;; Returns row if nothing is equal
-(expect (reduce-row-left [4 2 4 2]) [4 2 4 2])
+(expect (merge-row-left [4 2 4 2]) [4 2 4 2])
 
 (def test-board [[4 2 0 0]
                  [4 0 0 4]
@@ -66,29 +66,53 @@
          [2 0 0 2]
          [4 4 0 2]])
 
-(expect (move-left test-board)
+(expect (merge-board-left test-board)
         [[4 2 0 0]
          [8 0 0 0]
          [4 0 0 0]
          [4 2 0 0]])
 
-(expect (move-up test-board)
+(expect (merge-board-up test-board)
         [[8 4 4 4]
          [2 0 2 0]
          [0 0 0 0]
          [0 0 0 0]])
 
-(expect (move-right test-board)
+(expect (merge-board-right test-board)
         [[0 0 4 2]
          [0 0 0 8]
          [0 0 0 4]
          [0 0 2 4]])
 
-(expect (move-down test-board)
+(expect (merge-board-down test-board)
         [[0 0 0 0]
          [0 0 0 0]
          [8 0 4 0]
          [2 4 2 4]])
+
+;; Finds the index for zeros in a vector
+(expect (indexes-for-zeros [2 0 4 0]) [1 3])
+(expect (indexes-for-zeros [2 2 4 4]) [])
+
+(expect (coordinates-for-zeros [[2 0 4 4]
+                                [2 0 0 2]
+                                [2 4 0 0]
+                                [0 0 4 0]])
+        [[0 1]
+         [1 1] [1 2]
+         [2 2] [2 3]
+         [3 0] [3 1] [3 3]])
+
+(expect (rand-empty-cell test-board) (in (coordinates-for-zeros test-board)))
+
+(expect (rand-numb-to-insert) (in [2 4]))
+
+(expect (coordinates-for-zeros (insert-rand-cell [[2 2 4 2]
+                                                  [2 4 0 4]
+                                                  [4 2 4 4]
+                                                  [4 4 4 4]]))
+        [])
+
 
 
 
