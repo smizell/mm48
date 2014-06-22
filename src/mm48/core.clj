@@ -39,7 +39,7 @@
        (= cell2 cell3)
          [cell0 cell1 (+ cell2 cell3) 0]
        :else
-         row)))
+         (vec row))))
 
 (defn merge-board-left [board]
   (->> board
@@ -112,7 +112,9 @@
 
 (defn move? [board]
   (or (not= (merge-board-left board) board)
-      (not= (merge-board-up board) board)))
+      (not= (merge-board-up board) board)
+      (not= (merge-board-right board) board)
+      (not= (merge-board-down board) board)))
 
 (defn move-left? [board]
   (not= (merge-board-left board) board))
@@ -124,9 +126,9 @@
 ;; see if we can move left. It's less code, and if you
 ;; can move left, you can move right
 (defn move-right? [board]
-  (move-left? board))
+  (not= (merge-board-right board) board))
 
 ;; Reason for using move-up? is the same reason as comment
 ;; for move-right?
 (defn move-down? [board]
-  (move-up? board))
+  (not= (merge-board-down board) board))
